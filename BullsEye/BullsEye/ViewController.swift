@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import QuartzCore
 
 class ViewController: UIViewController
 {
@@ -31,6 +32,24 @@ class ViewController: UIViewController
     
     override func viewDidLoad()
     {
+        let thumbImageNormal = UIImage(named: "SliderThumb-Normal")
+        slider.setThumbImage(thumbImageNormal, forState: .Normal)
+        
+        let thumbImageHighlighted = UIImage(named: "SliderThumb-Highlighted")
+        slider.setThumbImage(thumbImageHighlighted, forState: .Highlighted)
+        
+        let insets = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
+        
+        let trackLeftImage = UIImage(named: "SliderTrackLeft")
+        
+        let trackLeftResizable = trackLeftImage!.resizableImageWithCapInsets(insets)
+        slider.setMinimumTrackImage(trackLeftResizable, forState: .Normal)
+        
+        let trackRightImage = UIImage(named: "SliderTrackRight")
+        
+        let trackRightResizable = trackRightImage!.resizableImageWithCapInsets(insets)
+        slider.setMaximumTrackImage(trackRightResizable, forState: .Normal)
+        
         super.viewDidLoad()
         //receiver.methodName(parameters) = method syntax
         
@@ -148,6 +167,13 @@ class ViewController: UIViewController
         score = 0
         round = 0
         startNewRound()
+        
+        let transition = CATransition()
+        transition.type = kCATransitionFade
+        transition.duration = 1
+        transition.timingFunction = CAMediaTimingFunction(name:
+            kCAMediaTimingFunctionEaseOut)
+        view.layer.addAnimation(transition, forKey: nil)
     }//startOver
     
 }//View Controller
